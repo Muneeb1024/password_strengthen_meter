@@ -1,9 +1,6 @@
 import re
 import streamlit as st
 
-
-
-
 # app styling
 st.set_page_config(page_title="Password Strength Meter By Muneeb Lodhi", page_icon="🔑", layout="centered")
 
@@ -11,10 +8,10 @@ st.markdown("""
             <style>
             .main {text-align: center;}
             .stTextInput {width: 60% !important; margin:auto }
-            .stButton button {width: 50%; background-color: #4CAF50; color: white; font-size: 18px; }
-            .stButton button:hover {background-color: #45a049;}
+            .stButton button {width: 50%; background-color: blue; color: white; font-size: 18px; }
             </style>
             """, unsafe_allow_html=True)
+            # .stButton button:hover {background-color: ;}
 
 # page Title ond description
 st.title("🔐Password Strength Meter")
@@ -25,15 +22,16 @@ def check_password_strength(password):
     score = 0
     feedback = []
 
-    if len(password) >=8:
+    if len(password) >= 8:
         score +=1 #increase score by 1
     else: 
         feedback.append("❌ Password should contain atleast 8 character")
     if re.search(r"[A-Z]", password) and re.search(r"[a-z]", password):
-        score =+1
-    else:feedback.append("❌ Password should include upper and lowercase (a-z)")
-    if re.serach(r"\d", password):
-        score +=1
+        score += 1
+    else:
+        feedback.append("❌ Password should include upper and lowercase (a-z)")
+    if re.search(r"\d", password):
+        score += 1
     else:
         feedback.append("❌ Password should contain atleast one number")    
 
@@ -63,6 +61,6 @@ password = st.text_input("Enter Your Password:", type= "password", help = "Ensur
 #Button working
 if st.button("Check Strength"):
     if password:
-        check_password_strength
+        check_password_strength(password)
     else:
         st.warning("⚠️Please enter a password first") #show warning if password is empty    
